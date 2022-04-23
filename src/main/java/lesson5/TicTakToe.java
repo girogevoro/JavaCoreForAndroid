@@ -20,6 +20,8 @@ public class TicTakToe {
     static int countFillMap;
     static int maxFillMap;
 
+    static  int countDigitsInSizeMap;
+
     static Scanner scanner = new Scanner(System.in);
     static Random random = new Random();
 
@@ -231,10 +233,16 @@ public class TicTakToe {
             System.out.println("#Размер поля должно быть не меньше 3");
         } while (true);
 
+        countDigitsInSizeMap = getCountDigits(sizeMap);
+
         sizeWin = getWinningStreak(sizeMap);
         System.out.printf("Начало новой игры\nРазмер поля %d \nДлина победной серии %d\n\n\n", sizeMap, sizeWin);
 
 
+    }
+
+    private static int getCountDigits(int number) {
+        return (int)Math.ceil(Math.log10(number + 0.5));
     }
 
     private static void initMap() {
@@ -257,9 +265,9 @@ public class TicTakToe {
 
     private static String putScreenHeader() {
         StringBuilder headerLine = new StringBuilder();
-        headerLine.append("  ");
+        headerLine.append(getFormat(""));
         for (int i = 0; i < sizeMap; i++) {
-            headerLine.append(i + 1).append(" ");
+            headerLine.append(" ").append(getFormat(String.valueOf(i + 1)));
         }
         headerLine.append("\n");
         return headerLine.toString();
@@ -274,11 +282,15 @@ public class TicTakToe {
         return screenBuilder.toString();
     }
 
+    private static String getFormat(String str) {
+        return String.format("%" + countDigitsInSizeMap + "s", str);
+    }
+
     private static String getScreenLine(int i) {
         StringBuilder line = new StringBuilder();
-        line.append(i + 1);
+        line.append(getFormat(String.valueOf(i + 1)));
         for (int j = 0; j < sizeMap; j++) {
-            line.append(" ").append(DOT_FIELD[map[i][j]]);
+            line.append(" ").append(getFormat(String.valueOf(DOT_FIELD[map[i][j]])));
         }
         line.append("\n");
         return line.toString();
