@@ -11,6 +11,8 @@ public class TicTakToe {
     static final int ID_HUMAN = 1;
     static final int ID_AI = 2;
 
+    static final int MIN_SIZE_MAP = 3;
+
     static final char[] DOT_FIELD = {'•', 'x', '0'};
 
     static int last_move_row;
@@ -181,9 +183,10 @@ public class TicTakToe {
 
         while (true) {
             System.out.println("Ход человека");
-            System.out.println("Введите строку и столбец");
-            last_move_row = scanner.nextInt() - 1;
-            last_move_col = scanner.nextInt() - 1;
+            System.out.println("Введите строку");
+            last_move_row = inputNumber() - 1;
+            System.out.println("Введите столбец");
+            last_move_col = inputNumber() - 1;
             if (isCellFree()) {
                 putMap(ID_HUMAN);
                 break;
@@ -192,6 +195,17 @@ public class TicTakToe {
         }
 
 
+    }
+
+    private static int inputNumber() {
+
+        while (true){
+            if(scanner.hasNextInt()){
+                return scanner.nextInt();
+            }
+            scanner.next();
+            System.out.println("#Введите число");
+        }
     }
 
     private static void putMap(int id) {
@@ -209,7 +223,14 @@ public class TicTakToe {
     private static void input() {
         System.out.println("Начало новый игры");
         System.out.println("Введите размер поля");
-        sizeMap = scanner.nextInt();
+        do {
+            sizeMap = inputNumber();
+            if(sizeMap >= MIN_SIZE_MAP){
+                break;
+            }
+            System.out.println("#Размер поля должно быть не меньше 3");
+        } while (true);
+
         sizeWin = getWinningStreak(sizeMap);
         System.out.printf("Начало новой игры\nРазмер поля %d \nДлина победной серии %d\n\n\n", sizeMap, sizeWin);
 
