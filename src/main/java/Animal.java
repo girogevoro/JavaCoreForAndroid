@@ -3,8 +3,8 @@ public abstract class Animal {
     private int swimDistance;
     private static int count = 0;
 
-    public Animal(int runDistance, int swimDistance) {
-        this.runDistance = runDistance;
+    public Animal(int ranDistance, int swimDistance) {
+        this.runDistance = ranDistance;
         this.swimDistance = swimDistance;
         count++;
     }
