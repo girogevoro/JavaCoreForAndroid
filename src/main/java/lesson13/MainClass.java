@@ -1,8 +1,5 @@
 package lesson13;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.CyclicBarrier;
-
 public class MainClass {
     public static final int CARS_COUNT = 4;
 
